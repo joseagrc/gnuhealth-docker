@@ -9,15 +9,6 @@ scalability and security.
 
 # How to use this image
 
-## Create volumes to store data
-
-```console
-$ docker volume create tryton
-```
-```console
-$ docker volume create postgres
-```
-
 ## Start a PostgreSQL instance
 
 ```console
