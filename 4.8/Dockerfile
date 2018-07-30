@@ -1,5 +1,11 @@
 FROM debian:stretch-slim
-MAINTAINER Tryton <foundation@tryton.org>
+LABEL maintainer="Tryton <foundation@tryton.org>" \
+    org.label-schema.name="Tryton" \
+    org.label-schema.url="http://www.tryton.org/" \
+    org.label-schema.vendor="Tryton" \
+    org.label-schema.version="4.8" \
+    org.label-schema.schema-version="1.0"
+
 
 ENV SERIES 4.8
 ENV LANG C.UTF-8

@@ -1,5 +1,5 @@
 FROM tryton/tryton:4.8
-MAINTAINER Tryton <foundation@tryton.org>
+LABEL org.label-schema.version="4.8-office"
 
 USER root
 
