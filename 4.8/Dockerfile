@@ -35,7 +35,7 @@ RUN apt-get update \
         # modules
         python3-dateutil \
         python3-html2text \
-        python3-ldap3 \
+        #python3-ldap3 \ requires >= 2.0.7
         python3-magic \
         python3-ofxparse \
         python3-pypdf2 \
