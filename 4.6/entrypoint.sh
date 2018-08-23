@@ -11,4 +11,8 @@ set -e
 
 export TRYTOND_DATABASE_URI PYTHONOPTIMIZE
 
+if [ "${1:0:1}" = '-' ]; then
+    set -- uwsgi --ini /etc/uwsgi.conf "$@"
+fi
+
 exec "$@"

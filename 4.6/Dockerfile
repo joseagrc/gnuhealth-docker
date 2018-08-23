@@ -14,15 +14,14 @@ RUN groupadd -r trytond \
     && mkdir /var/lib/trytond/db && chown trytond:trytond /var/lib/trytond/db \
     && mkdir /var/lib/trytond/www
 
-COPY entrypoint.sh /
-COPY trytond.conf /etc/trytond.conf
-
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
         curl \
         python3 \
         python3-pip \
         python3-setuptools \
+        uwsgi \
+        uwsgi-plugin-python3 \
         # trytond
         python3-lxml \
         python3-genshi \
@@ -71,10 +70,14 @@ RUN apt-get update \
         gnupg2 \
         nodejs
 
+COPY entrypoint.sh /
+COPY trytond.conf /etc/trytond.conf
+COPY uwsgi.conf /etc/uwsgi.conf
+
 EXPOSE 8000
 
 VOLUME ["/var/lib/trytond/db"]
 ENV TRYTOND_CONFIG=/etc/trytond.conf
 USER trytond
 ENTRYPOINT ["/entrypoint.sh"]
-CMD ["trytond"]
+CMD ["uwsgi", "--ini", "/etc/uwsgi.conf"]

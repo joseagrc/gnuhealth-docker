@@ -34,3 +34,12 @@ You can connect to Tryton using http://localhost:8000/
 ```console
 $ docker run --name tryton-cron --link tryton-postgres:postgres -d tryton/tryton trytond-cron -d tryton
 ```
+
+## Command arguments
+
+Since the 4.6 series, if COMMAND starts with a `-`, it is appended as argument to the default COMMAND.
+To see all arguments available run:
+
+```console
+$ docker run --rm -ti tryton/tryton --help
+```
