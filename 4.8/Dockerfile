@@ -1,3 +1,9 @@
+FROM node as builder-node
+ENV SERIES 4.8
+RUN npm install -g bower
+RUN curl https://downloads.tryton.org/${SERIES}/tryton-sao-last.tgz | tar zxf - -C /
+RUN cd /package && bower install --allow-root
+
 FROM debian:stretch-slim
 LABEL maintainer="Tryton <foundation@tryton.org>" \
     org.label-schema.name="Tryton" \
@@ -44,34 +50,14 @@ RUN apt-get update \
         python3-zeep \
     && rm -rf /var/lib/apt/lists/*
 
-RUN pip3 install \
+RUN pip3 install --no-cache-dir \
     "trytond == ${SERIES}.*" \
     && for module in `curl https://downloads.tryton.org/${SERIES}/modules.txt`; do \
-        pip3 install "trytond_${module} == ${SERIES}.*"; \
+        pip3 install --no-cache-dir "trytond_${module} == ${SERIES}.*"; \
         done \
-    && pip3 install phonenumbers \
-    && rm -rf /root/.cache
+    && pip3 install --no-cache-dir phonenumbers
 
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends \
-        git \
-        gnupg2 \
-        curl \
-    && curl -sL https://deb.nodesource.com/setup_8.x | bash - \
-    && apt-get install -y --no-install-recommends \
-        nodejs \
-    && npm install -g bower \
-    && curl https://downloads.tryton.org/${SERIES}/tryton-sao-last.tgz \
-        | tar zxf - -C /var/lib/trytond/www --strip-components=1 \
-    && (cd /var/lib/trytond/www && bower install --allow-root) \
-    && rm -rf /root/.cache /root/.npm /root/.config /root/.local \
-    && rm -rf /var/lib/apt/lists/* \
-    && apt-get purge -y --auto-remove \
-        curl \
-        git \
-        gnupg2 \
-        nodejs
-
+COPY --from=builder-node /package /var/lib/trytond/www
 COPY entrypoint.sh /
 COPY trytond.conf /etc/trytond.conf
 COPY uwsgi.conf /etc/uwsgi.conf
