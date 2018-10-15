@@ -38,6 +38,7 @@ RUN apt-get update \
         python3-dateutil \
         python3-html2text \
         python3-pypdf2 \
+        python3-pysimplesoap \
         python3-requests \
         python3-simpleeval \
         python3-stdnum \

@@ -41,6 +41,7 @@ RUN apt-get update \
         python3-html2text \
         python3-magic \
         python3-pypdf2 \
+        python3-pysimplesoap \
         python3-requests \
         python3-simpleeval \
         python3-stdnum \
