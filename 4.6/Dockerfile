@@ -44,7 +44,6 @@ RUN apt-get update \
         python3-pysimplesoap \
         python3-requests \
         python3-simpleeval \
-        python3-stdnum \
         python3-tz \
         python3-zeep \
     && rm -rf /var/lib/apt/lists/*
@@ -54,7 +53,7 @@ RUN pip3 install --no-cache-dir \
     && for module in `curl https://downloads.tryton.org/${SERIES}/modules.txt`; do \
         pip3 install --no-cache-dir "trytond_${module} == ${SERIES}.*"; \
         done \
-    && pip3 install --no-cache-dir phonenumbers
+    && pip3 install --no-cache-dir phonenumbers python-stdnum[SOAP]
 
 COPY --from=builder-node /package /var/lib/trytond/www
 COPY entrypoint.sh /
