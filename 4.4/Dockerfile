@@ -18,7 +18,10 @@ ENV LANG C.UTF-8
 RUN groupadd -r trytond \
     && useradd --no-log-init -r -d /var/lib/trytond -m -g trytond trytond \
     && mkdir /var/lib/trytond/db && chown trytond:trytond /var/lib/trytond/db \
-    && mkdir /var/lib/trytond/www
+    && mkdir /var/lib/trytond/www \
+    && mkdir -p /etc/python3 \
+    && echo "[DEFAULT]\nbyte-compile = standard, optimize" \
+        > /etc/python3/debian_config
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
@@ -45,12 +48,12 @@ RUN apt-get update \
         python3-zeep \
     && rm -rf /var/lib/apt/lists/*
 
-RUN pip3 install --no-cache-dir \
+RUN pip3 install --no-cache-dir --install-option="-O1" \
     "trytond == ${SERIES}.*" \
     && for module in `curl https://downloads.tryton.org/${SERIES}/modules.txt`; do \
-        pip3 install --no-cache-dir "trytond_${module} == ${SERIES}.*"; \
+        pip3 install --no-cache-dir --install-option="-O1" "trytond_${module} == ${SERIES}.*"; \
         done \
-    && pip3 install --no-cache-dir phonenumbers python-stdnum[SOAP]
+    && pip3 install --no-cache-dir --install-option="-O1" phonenumbers python-stdnum[SOAP]
 
 COPY --from=builder-node /package /var/lib/trytond/www
 COPY entrypoint.sh /
