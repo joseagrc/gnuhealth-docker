@@ -55,6 +55,7 @@ RUN apt-get update \
 
 RUN pip3 install --no-cache-dir --install-option="-O1" \
     "trytond == ${SERIES}.*" \
+    "proteus == ${SERIES}.*" \
     && for module in `curl https://downloads.tryton.org/${SERIES}/modules.txt`; do \
         pip3 install --no-cache-dir --install-option="-O1" "trytond_${module} == ${SERIES}.*"; \
         done \
