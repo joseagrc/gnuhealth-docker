@@ -37,6 +37,7 @@ RUN apt-get update \
         python3-wrapt \
         python3-psycopg2 \
         python3-bcrypt \
+        python3-mock \
         # modules
         python3-dateutil \
         python3-html2text \
