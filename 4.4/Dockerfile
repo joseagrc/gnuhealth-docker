@@ -4,7 +4,7 @@ RUN npm install -g bower
 RUN curl https://downloads.tryton.org/${SERIES}/tryton-sao-last.tgz | tar zxf - -C /
 RUN cd /package && bower install --allow-root
 
-FROM debian:stretch-slim
+FROM debian:9-slim
 LABEL maintainer="Tryton <foundation@tryton.org>" \
     org.label-schema.name="Tryton" \
     org.label-schema.url="http://www.tryton.org/" \
