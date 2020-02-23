@@ -18,13 +18,13 @@ $ docker run --name tryton-postgres -e POSTGRES_PASSWORD=mysecretpassword -e POS
 ## Setup the database
 
 ```console
-$ docker run --link tryton-postgres:postgres -e POSTGRES_ENV_POSTGRES_PASSWORD=mysecretpassword -it tryton/tryton trytond-admin -d tryton --all
+$ docker run --link tryton-postgres:postgres -e DB_PASSWORD=mysecretpassword -it tryton/tryton trytond-admin -d tryton --all
 ```
 
 ## Start a Tryton instance
 
 ```console
-$ docker run --name tryton -p 8000:8000 --link tryton-postgres:postgres -e POSTGRES_ENV_POSTGRES_PASSWORD=mysecretpassword -d tryton/tryton
+$ docker run --name tryton -p 8000:8000 --link tryton-postgres:postgres -e DB_PASSWORD=mysecretpassword -d tryton/tryton
 ```
 
 You can connect to Tryton using http://localhost:8000/
@@ -32,7 +32,7 @@ You can connect to Tryton using http://localhost:8000/
 ## Start a Tryton cron instance
 
 ```console
-$ docker run --name tryton-cron --link tryton-postgres:postgres -e POSTGRES_ENV_POSTGRES_PASSWORD=mysecretpassword -d tryton/tryton trytond-cron -d tryton
+$ docker run --name tryton-cron --link tryton-postgres:postgres -e DB_PASSWORD=mysecretpassword -d tryton/tryton trytond-cron -d tryton
 ```
 
 ## Command arguments
