@@ -43,3 +43,8 @@ To see all arguments available run:
 ```console
 $ docker run --rm -ti tryton/tryton --help
 ```
+
+# Links
+
+* [Complete Tryton Docker guide](https://discuss.tryton.org/t/howto-run-tryton-using-docker/3200)
+* [Tryton Documentation](https://docs.tryton.org/)
