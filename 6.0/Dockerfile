@@ -73,7 +73,10 @@ RUN pip3 install --no-cache-dir --install-option="-O1" \
         python-stdnum[SOAP] \
     # Use wheels as Debian compiled dependencies are too old
     && pip3 install --no-cache-dir \
-        weasyprint
+        weasyprint \
+    # Upgrade Pillow as Debian compiled is too old but keep installed dependencies
+    && pip3 install --upgrade --no-cache-dir \
+        Pillow
 
 COPY --from=builder-node /package /var/lib/trytond/www
 COPY entrypoint.sh /
