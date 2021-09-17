@@ -29,6 +29,7 @@ RUN apt-get update \
         python3 \
         python3-pip \
         python3-setuptools \
+        python3-wheel \
         uwsgi \
         uwsgi-plugin-python3 \
         # trytond
@@ -57,6 +58,12 @@ RUN apt-get update \
         python3-simpleeval \
         python3-tz \
         python3-zeep \
+        # weasyprint
+        libcairo2 \
+        libpango-1.0-0 \
+        libpangocairo-1.0-0 \
+        libgdk-pixbuf2.0-0 \
+        shared-mime-info \
     && rm -rf /var/lib/apt/lists/*
 
 RUN pip3 install --no-cache-dir --install-option="-O1" \
@@ -73,7 +80,7 @@ RUN pip3 install --no-cache-dir --install-option="-O1" \
         python-stdnum[SOAP] \
     # Use wheels as Debian compiled dependencies are too old
     && pip3 install --no-cache-dir \
-        weasyprint \
+        "weasyprint < 53" \
     # Upgrade Pillow as Debian compiled is too old but keep installed dependencies
     && pip3 install --upgrade --no-cache-dir \
         Pillow
