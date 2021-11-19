@@ -53,13 +53,14 @@ RUN apt-get update \
         python3-zeep \
     && rm -rf /var/lib/apt/lists/*
 
-RUN pip3 install --no-cache-dir --install-option="-O1" \
+RUN pip3 install --no-cache-dir \
     "trytond == ${SERIES}.*" \
     "proteus == ${SERIES}.*" \
     && for module in `curl https://downloads.tryton.org/${SERIES}/modules.txt`; do \
-        pip3 install --no-cache-dir --install-option="-O1" "trytond_${module} == ${SERIES}.*"; \
+        pip3 install --no-cache-dir "trytond_${module} == ${SERIES}.*" || exit 1; \
         done \
-    && pip3 install --no-cache-dir --install-option="-O1" phonenumbers python-stdnum[SOAP] pygal
+    && pip3 install --no-cache-dir phonenumbers python-stdnum[SOAP] pygal \
+    && python3 -c "import compileall; compileall.compile_path(maxlevels=10, optimize=1)"
 
 COPY --from=builder-node /package /var/lib/trytond/www
 COPY entrypoint.sh /
