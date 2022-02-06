@@ -75,7 +75,7 @@ RUN pip3 install --no-cache-dir \
     && pip3 install --no-cache-dir \
         forex-python \
         phonenumbers \
-        pycountry \
+        "pycountry<=20.7.3" \
         pygal \
         python-stdnum[SOAP] \
     # Use wheels as Debian compiled dependencies are too old

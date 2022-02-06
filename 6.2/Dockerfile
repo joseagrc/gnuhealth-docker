@@ -73,7 +73,7 @@ RUN pip3 install --no-cache-dir \
     && pip3 install --no-cache-dir \
         forex-python \
         phonenumbers \
-        pycountry \
+        "pycountry<=20.7.3" \
         pygal \
         python-stdnum[SOAP] \
     && python3 -c "import compileall; compileall.compile_path(maxlevels=10, optimize=1)"
