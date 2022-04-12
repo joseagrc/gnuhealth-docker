@@ -9,6 +9,7 @@ RUN apt-get update \
         libreoffice-draw \
         libreoffice-impress \
         libreoffice-writer \
+        fonts-liberation2 \
     && rm -rf /var/lib/apt/lists/*
 
 USER trytond
